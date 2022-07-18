@@ -1,0 +1,19 @@
+source /usr/share/zsh/share/antigen.zsh
+
+antigen use oh-my-zsh
+
+# Bundles from the default repo (robbyrussell's oh-my-zsh).
+antigen bundle git
+antigen bundle sudo
+antigen bundle docker
+antigen bundle zdharma-continuum/fast-syntax-highlighting
+antigen bundle thefuck
+
+# Load the theme.
+antigen theme spaceship-prompt/spaceship-prompt
+
+# Tell Antigen that you're done.
+antigen apply
+
+# -------------------------------- #
+export EDITOR=code
