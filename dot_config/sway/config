@@ -1,5 +1,9 @@
 set $mod Mod4
 set $term kitty
+
+# polkit - needed for vscode
+exec /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
+
 # Note: pass the final command to swaymsg so that the resulting window can be opened
 # on the original workspace that the command was run on.
 set $menu wofi -S drun | xargs swaymsg exec --
