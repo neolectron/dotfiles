@@ -3,10 +3,9 @@ set $term kitty
 # Note: pass the final command to swaymsg so that the resulting window can be opened
 # on the original workspace that the command was run on.
 set $menu wofi -S drun | xargs swaymsg exec --
-
 # Outputs - get names with `swaymsg -t get_outputs | grep name`
-output HDMI-A-1 pos 0 0 res 1920 1080
-output DP-1 pos 1920 0 res 1920 1080
+output DP-1 pos 0 0 res 1920 1080
+output HDMI-A-1 pos 1920 0 res 1920 1080
 
 # Inputs - get names with `swaymsg -t get_inputs| grep \"name\": | sort -u`
 input type:keyboard {
