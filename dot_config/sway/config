@@ -7,6 +7,7 @@ exec /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 # Note: pass the final command to swaymsg so that the resulting window can be opened
 # on the original workspace that the command was run on.
 set $menu wofi -S drun | xargs swaymsg exec --
+
 # Outputs - get names with `swaymsg -t get_outputs | grep name`
 output DP-1 pos 0 0 res 1920 1080
 output HDMI-A-1 pos 1920 0 res 1920 1080
@@ -102,6 +103,21 @@ mode "resize" {
     bindsym Return mode "default"
     bindsym Escape mode "default"
 }
+
+# Theme
+smart_gaps on
+gaps inner 10
+smart_borders no_gaps
+default_border none
+# font pango:monospace 0
+# titlebar_border_thickness 0                                                     
+# titlebar_padding 0
+# exec killall swaybg
+
+# Animated Wallpaper
+swaybg_command -
+exec_always /usr/bin/mpvpaper -s -o "no-audio loop" DP-1 "/home/neolectron/Videos/Background/Drowning In Space live wallpaper-v4dXS8LAq18.mp4" 
+exec_always /usr/bin/mpvpaper -s -o "no-audio loop" HDMI-A-1 "~/Videos/Background/Drowning In Space live wallpaper-v4dXS8LAq18.mp4"
 
 # sway-bar
 bar {
