@@ -117,7 +117,7 @@ default_border none
 # Animated Wallpaper
 swaybg_command -
 exec_always /usr/bin/mpvpaper -s -o "no-audio loop" DP-1 "/home/neolectron/Videos/Background/Drowning In Space live wallpaper-v4dXS8LAq18.mp4" 
-exec_always /usr/bin/mpvpaper -s -o "no-audio loop" HDMI-A-1 "~/Videos/Background/Drowning In Space live wallpaper-v4dXS8LAq18.mp4"
+exec_always /usr/bin/mpvpaper -s -o "no-audio loop" HDMI-A-1 "/home/neolectron/Videos/Background/Drowning In Space live wallpaper-v4dXS8LAq18.mp4"
 
 # sway-bar
 bar {
