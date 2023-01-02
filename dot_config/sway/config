@@ -1,147 +1,142 @@
-set $mod Mod4
-set $term kitty
+# Outputs&Inputs#####################################################################
+  # Get outputs names with `swaymsg -t get_outputs | grep name`
+  output DP-1 res 1920 1080 pos 1920 0 
+  output HDMI-A-1 res 1920 1080 pos 0 0
 
-# polkit - needed for vscode
-exec /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
+  # Get inputs names with `swaymsg -t get_inputs| grep \"name\": | sort -u`
+  input type:keyboard {
+      xkb_layout "fr"
+      xkb_variant "us"
+  }
 
-# Note: pass the final command to swaymsg so that the resulting window can be opened
-# on the original workspace that the command was run on.
-set $menu wofi -S drun | xargs swaymsg exec --
+#Tools##############################################################################
 
-# Outputs - get names with `swaymsg -t get_outputs | grep name`
-output DP-1 pos 0 0 res 1920 1080
-output HDMI-A-1 pos 1920 0 res 1920 1080
+  ## Tool List 
+  set $term kitty
+  set $bar waybar
+  set $menu wofi -S drun | xargs swaymsg exec --
+  set $screenshot grim -o DP-1 - | wl-copy
+  set $sworkstyle sworkstyle
+  set $polkit /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
+  set $bg - 
+  set $bgAnimated mpvpaper -s -o "no-audio loop shuffle" DP-1 "$HOME/Videos/Background/playlist.m3u"
+  set $swayidle swayidle -w \
+         timeout 60 'swaylock -f -c 000000' \
+         timeout 80 'swaymsg "output * dpms off"' \
+         resume 'swaymsg "output * dpms on"' \
+         before-sleep 'swaylock -f -c 000000'
 
-# Inputs - get names with `swaymsg -t get_inputs| grep \"name\": | sort -u`
-input type:keyboard {
-    xkb_layout "fr"
-    xkb_variant "us"
-}
+  ## Tool Execution
+  bar swaybar_command $bar
+  # swaybg_command $bg
+  exec pkill $(cut -d "$bgAnimated" -f1); $bgAnimated
+  exec_always $sworkstyle &> /tmp/sworkstyle.log
+  exec $polkit
+  exec $swayidle
 
-### Key bindings
-bindsym $mod+Return exec $term
-bindsym $mod+Space exec $menu
-bindsym $mod+q kill
-bindsym $mod+Shift+c reload
-bindsym $mod+Shift+e exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -B 'Yes, exit sway' 'swaymsg exit'
+#Theme##############################################################################
+  # Window conf
+  smart_gaps on
+  gaps inner 10
+  smart_borders no_gaps
+  default_border none
 
-bindsym $mod+b splith
-bindsym $mod+v splitv
+  # Tab conf
+  font pango:monospace 10
+  # titlebar_border_thickness 0                                                     
+  # titlebar_padding 0
 
-floating_modifier $mod normal
+#Keybindings########################################################################
+  set $mod Mod4
 
-# Move your focus around
-bindsym $mod+Left focus left
-bindsym $mod+Down focus down
-bindsym $mod+Up focus up
-bindsym $mod+Right focus right
+  bindsym $mod+Print exec $screenshot
+  bindsym $mod+Return exec $term
+  bindsym $mod+Space exec $menu
+  bindsym $mod+p exec $menu
+  bindsym $mod+q kill
+  bindsym $mod+Shift+c reload
+  bindsym $mod+Shift+e exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -B 'Yes, exit sway' 'swaymsg exit'
 
-# Move the focused window with the same, but add Shift
-bindsym $mod+Shift+Left move left
-bindsym $mod+Shift+Down move down
-bindsym $mod+Shift+Up move up
-bindsym $mod+Shift+Right move right
+  bindsym $mod+b splith
+  bindsym $mod+v splitv
 
-# Switch the current container between different layout styles
-bindsym $mod+s layout stacking
-bindsym $mod+w layout tabbed
-bindsym $mod+e layout toggle split
-bindsym $mod+f fullscreen
+  floating_modifier $mod normal
 
-# Switch to workspace
-bindsym $mod+1 workspace number 1
-bindsym $mod+2 workspace number 2
-bindsym $mod+3 workspace number 3
-bindsym $mod+4 workspace number 4
-bindsym $mod+5 workspace number 5
-bindsym $mod+6 workspace number 6
-bindsym $mod+7 workspace number 7
-bindsym $mod+8 workspace number 8
-bindsym $mod+9 workspace number 9
-bindsym $mod+0 workspace number 10
+  # Move your focus around
+  bindsym $mod+Left focus left
+  bindsym $mod+Down focus down
+  bindsym $mod+Up focus up
+  bindsym $mod+Right focus right
 
-# Move focused container to workspace
-# Note: workspaces can have any name you want, not just numbers.
-# We just use 1-10 as the default.
-bindsym $mod+Shift+1 move container to workspace number 1
-bindsym $mod+Shift+2 move container to workspace number 2
-bindsym $mod+Shift+3 move container to workspace number 3
-bindsym $mod+Shift+4 move container to workspace number 4
-bindsym $mod+Shift+5 move container to workspace number 5
-bindsym $mod+Shift+6 move container to workspace number 6
-bindsym $mod+Shift+7 move container to workspace number 7
-bindsym $mod+Shift+8 move container to workspace number 8
-bindsym $mod+Shift+9 move container to workspace number 9
-bindsym $mod+Shift+0 move container to workspace number 10
+  # Move the focused window with the same, but add Shift
+  bindsym $mod+Shift+Left move left
+  bindsym $mod+Shift+Down move down
+  bindsym $mod+Shift+Up move up
+  bindsym $mod+Shift+Right move right
 
-# Toggle the current focus between tiling and floating mode
-bindsym $mod+Shift+space floating toggle
+  # Switch the current container between different layout styles
+  bindsym $mod+s layout stacking
+  bindsym $mod+w layout tabbed
+  bindsym $mod+e layout toggle split
+  bindsym $mod+f fullscreen
 
-# Swap focus between the tiling area and the floating area
-bindsym $mod+j focus mode_toggle
+  # Switch to workspace
+  bindsym $mod+1 workspace number 1
+  bindsym $mod+2 workspace number 2
+  bindsym $mod+3 workspace number 3
+  bindsym $mod+4 workspace number 4
+  bindsym $mod+5 workspace number 5
+  bindsym $mod+6 workspace number 6
+  bindsym $mod+7 workspace number 7
+  bindsym $mod+8 workspace number 8
+  bindsym $mod+9 workspace number 9
+  bindsym $mod+0 workspace number 10
 
-# Move focus to the parent container
-bindsym $mod+a focus parent
+  bindsym $mod+Shift+1 move container to workspace number 1
+  bindsym $mod+Shift+2 move container to workspace number 2
+  bindsym $mod+Shift+3 move container to workspace number 3
+  bindsym $mod+Shift+4 move container to workspace number 4
+  bindsym $mod+Shift+5 move container to workspace number 5
+  bindsym $mod+Shift+6 move container to workspace number 6
+  bindsym $mod+Shift+7 move container to workspace number 7
+  bindsym $mod+Shift+8 move container to workspace number 8
+  bindsym $mod+Shift+9 move container to workspace number 9
+  bindsym $mod+Shift+0 move container to workspace number 10
 
-# Move the currently focused window to the scratchpad
-bindsym $mod+Shift+minus move scratchpad
+  # Mov focused workspace to output
+  bindsym $mod+Control+Shift+Right move workspace to output right
+  bindsym $mod+Control+Shift+Left move workspace to output left
 
-# Show the next scratchpad window or hide the focused scratchpad window.
-# If there are multiple scratchpad windows, this command cycles through them.
-bindsym $mod+minus scratchpad show
+  # Toggle the current focus between tiling and floating mode
+  bindsym $mod+Shift+space floating toggle
 
-# Mode resize
-bindsym $mod+r mode "resize"
-mode "resize" {
-    # left/right shrink/grow width --- up/down shrink/grow height
-    bindsym Left resize shrink width 10px
-    bindsym Down resize grow height 10px
-    bindsym Up resize shrink height 10px
-    bindsym Right resize grow width 10px
+  # Swap focus between the tiling area and the floating area
+  bindsym $mod+j focus mode_toggle
 
-    # Return to default mode
-    bindsym Return mode "default"
-    bindsym Escape mode "default"
-}
+  # Move focus to the parent container
+  bindsym $mod+a focus parent
 
-# Theme
-smart_gaps on
-gaps inner 10
-smart_borders no_gaps
-default_border none
-# font pango:monospace 0
-# titlebar_border_thickness 0                                                     
-# titlebar_padding 0
-# exec killall swaybg
+  # Move the currently focused window to the scratchpad
+  bindsym $mod+Shift+minus move scratchpad
 
-# Animated Wallpaper
-swaybg_command -
-exec_always /usr/bin/mpvpaper -s -o "no-audio loop" DP-1 "/home/neolectron/Videos/Background/Drowning In Space live wallpaper-v4dXS8LAq18.mp4" 
-exec_always /usr/bin/mpvpaper -s -o "no-audio loop" HDMI-A-1 "/home/neolectron/Videos/Background/Drowning In Space live wallpaper-v4dXS8LAq18.mp4"
+  # Show the next scratchpad window or hide the focused scratchpad window.
+  # If there are multiple scratchpad windows, this command cycles through them.
+  bindsym $mod+minus scratchpad show
 
-# sway-bar
-bar {
-    position top
+  # Mode resize
+  bindsym $mod+r mode "resize"
+  mode "resize" {
+      # left/right shrink/grow width --- up/down shrink/grow height
+      bindsym Left resize shrink width 10px
+      bindsym Down resize grow height 10px
+      bindsym Up resize shrink height 10px
+      bindsym Right resize grow width 10px
 
-    # When the status_command prints a new line to stdout, swaybar updates.
-    # The default just shows the current date and time.
-    status_command while date +'%Y-%m-%d %I:%M:%S %p'; do sleep 1; done
-
-    colors {
-        statusline #ffffff
-        background #323232
-        inactive_workspace #32323200 #32323200 #5c5c5c
-    }
-}
-
-# Idle screensaver
-# exec swayidle -w \
-#          timeout 300 'swaylock -f -c 000000' \
-#          timeout 600 'swaymsg "output * dpms off"' resume 'swaymsg "output * dpms on"' \
-#          before-sleep 'swaylock -f -c 000000'
-#
-# This will lock your screen after 300 seconds of inactivity, then turn off
-# your displays after another 300 seconds, and turn your screens back on when
-# resumed. It will also lock your screen before your computer goes to sleep.
+      # Return to default mode
+      bindsym Return mode "default"
+      bindsym Escape mode "default"
+  }
+#Extend-default-config##############################################################
 
 include /etc/sway/config.d/*
+include ~/.config/sway/config.d/*

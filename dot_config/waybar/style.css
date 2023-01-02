@@ -1,0 +1,151 @@
+/* Colors Dracula */
+@define-color light #f8f8f2;
+@define-color dark #44475a;
+@define-color blue #6272a4;
+@define-color cyan #8be9fd;
+@define-color green #50fa7b;
+@define-color orange #ffb86c;
+@define-color pink #ff79c6;
+@define-color purple #bd93f9;
+@define-color red #ff5555;
+@define-color yellow #f1fa8c;
+@define-color transparent transparent;
+
+/* Animation Blink */
+@keyframes blink-critical {
+  70% {
+    color: @light;
+  }
+
+  to {
+    color: @light;
+    background-color: @red;
+  }
+}
+
+/* Reset all styles */
+* {
+  border: none;
+  border-radius: 0;
+  min-height: 0;
+  margin: 0;
+  padding: 0;
+  /* font-family: 'CaskaydiaCove Nerd Font Mono', monospace; */
+  font-family: Monospace, FontAwesome;
+  transition-duration: 0.2s;
+  min-height: 0;
+}
+
+/* Gloabal styling */
+#waybar {
+  background: @dark;
+  color: @light;
+  font-family: fira-code, monospace;
+  font-size: 10pt;
+  /*font-weight: bold;*/
+  border-bottom: 2px solid @dark;
+}
+
+.critical {
+  color: @red;
+  animation-name: blink-critical;
+  animation-duration: 2s;
+}
+
+.warning {
+  color: @orange;
+}
+
+/* Each module */
+#mode,
+#pulseaudio,
+#cpu,
+#memory,
+#temperature,
+#tray,
+#clock {
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+#workspaces button {
+  /* padding: 0; */
+  /* font-weight: bold; */
+  /* padding-left: 4px; */
+  /* padding-right: 4px; */
+  color: @light;
+}
+
+#workspaces button {
+  /* font-size: 30px; */
+}
+
+#workspaces button:hover {
+  color: @dark;
+  background: @light;
+}
+
+#workspaces button.focused {
+  background: @blue;
+}
+
+#mode {
+  color: @light;
+  background: @red;
+}
+
+/* #window {
+  margin-right: 40px;
+  margin-left: 40px;
+} */
+
+/* #pulseaudio {
+  background: @blue;
+  color: @light;
+} */
+
+/* #cpu {
+  background: @cyan;
+  color: @light;
+} */
+
+/* #memory {
+  background: @purple;
+  color: @light;
+} */
+
+/*  #temperature {
+   background: @orange;
+   color: @dark;
+ } */
+
+/* #tray {
+  background: @transparent;
+} */
+
+/* #clock {
+  color: @light;
+} */
+/* Arrows ==================================== */
+/*
+#custom-arrow-dr,
+#custom-arrow-dl,
+#custom-arrow-lr,
+#custom-arrow-ll {
+  padding: 0px 0px 0px 0px;
+  margin: 0px 0px 0px 0px;
+  margin-top: 0px;
+  margin-bottom: 0px;
+  font-size: 20px;
+}
+
+#custom-arrow-dr,
+#custom-arrow-dl, {
+  color: #1a1a1a;
+}
+#custom-arrow-lr,
+#custom-arrow-ll {
+  color: #292b2e;
+  background: #1a1a1a;
+}
+*/
