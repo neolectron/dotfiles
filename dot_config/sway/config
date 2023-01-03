@@ -42,7 +42,7 @@
   default_border none
 
   # Tab conf
-  font pango:monospace 10
+  font pango:Fira Code Nerd Font 10
   # titlebar_border_thickness 0                                                     
   # titlebar_padding 0
 

@@ -25,24 +25,20 @@
 
 /* Reset all styles */
 * {
-  border: none;
-  border-radius: 0;
-  min-height: 0;
   margin: 0;
   padding: 0;
-  /* font-family: 'CaskaydiaCove Nerd Font Mono', monospace; */
-  font-family: Monospace, FontAwesome;
-  transition-duration: 0.2s;
+  border: none;
   min-height: 0;
+  transition-duration: 0.2s;
 }
 
 /* Gloabal styling */
 #waybar {
-  background: @dark;
-  color: @light;
-  font-family: fira-code, monospace;
+  font-family: 'Fira Code Nerd Font', fira-code, Monospace, FontAwesome;
   font-size: 10pt;
   /*font-weight: bold;*/
+  color: @light;
+  background: @dark;
   border-bottom: 2px solid @dark;
 }
 
