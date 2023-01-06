@@ -19,7 +19,6 @@ antigen bundle zdharma-continuum/fast-syntax-highlighting
 antigen bundle thefuck
 
 # Load the theme.
-# antigen theme spaceship-prompt/spaceship-prompt
 antigen theme romkatv/powerlevel10k
 
 # Tell Antigen that you're done.
@@ -29,5 +28,5 @@ antigen apply
 P10K_PROMPT_PATH="$HOME/.config/p10k/p10k.zsh"
 [[ ! -f $P10K_PROMPT_PATH ]] || source $P10K_PROMPT_PATH
 # -------------------------------- #
-
-export EDITOR=code
+alias p="pacman -Qq | fzf --preview 'pacman -Qil {}' --layout=reverse --bind 'enter:execute(pacman -Qil {} | less)'"
+export EDITOR="code -nw"
