@@ -4,7 +4,7 @@ Collection of simple configurations files
 
 # Philosophy
 
-We're not here to fap our brain on some complicated setup.
+We're not here to fap our brains on some complicated setup.
 
 The main argument is the simplicity of it, yet it's still elegant.
 
